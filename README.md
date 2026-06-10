@@ -29,7 +29,3 @@ State Management	React useState/useReducer
 Export	html2canvas
 Hosting	Vercel / GitHub Pages
 ---
-Team
-Solo Developer — 1 member
----
-
