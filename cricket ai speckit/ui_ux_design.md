@@ -89,3 +89,19 @@ Hover fielder marker	Tooltip appears
 Drag fielder marker	Marker moves freely on field
 Click Reset	Returns to AI-suggested positions
 Click Export	Downloads field as PNG
+
+---
+Internationalization and Localization
+- Default language: English
+- Indian language support: Hindi and Telugu
+- All primary navigation, form labels, AI controls, table headers, field zones, and adoption messaging are localized.
+- Cricket terms stay stable internally so the placement engine remains reliable across languages.
+- Language can be changed from the sidebar without changing the selected cricket scenario.
+
+---
+AI and Market Adoption Requirements
+- Every project screen keeps an AI-powered feature visible through the AI Coaching Note.
+- Users can choose onboard rule-based AI for no-setup demos.
+- Users can choose local AI inference through Ollama for privacy-friendly offline coaching.
+- Users can choose BYOK with an OpenAI-compatible API base URL, model, and user-provided token.
+- The dashboard explicitly supports user-centric adoption goals: local languages, explainable recommendations, low-cost local inference, and provider choice for teams with different budgets.

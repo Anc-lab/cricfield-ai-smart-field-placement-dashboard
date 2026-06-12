@@ -27,6 +27,18 @@ Example: "Fine Leg — Protects against the pull shot, exploiting weakness vs sh
 5. Field Preset Display
 Shows field name (e.g., "Attacking Off-side Trap", "Leg-side Loaded")
 Reset to AI suggestion button
+6. Multilingual Experience
+English is the default language.
+Hindi and Telugu are available from the sidebar.
+Selectors, headings, table labels, AI controls, and adoption guidance are localized.
+7. AI Provider Choice
+Onboard rule-based AI for instant no-token demos.
+Local AI inference through Ollama.
+BYOK support for OpenAI-compatible APIs using the user's own token.
+8. User-Centric Market Adoption
+Localized UI for Indian cricket users.
+Explainable recommendations for trust.
+Local inference and BYOK for cost, privacy, and deployment flexibility.
 ---
 🔮 Stretch Goals (if time permits)
 Side-by-side field comparison (e.g., Powerplay vs Death)

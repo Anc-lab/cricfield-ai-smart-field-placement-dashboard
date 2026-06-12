@@ -113,3 +113,23 @@ cricfield-ai/
 ├── package.json
 └── vite.config.js
 ```
+
+---
+Implemented Streamlit Architecture
+- `app.py`: Streamlit interface, language selector, AI provider selector, and dashboard layout.
+- `i18n.py`: translation dictionaries for English, Hindi, and Telugu plus localized option labels.
+- `ai_client.py`: prompt builder, local Ollama client, OpenAI-compatible BYOK client, and onboard fallback AI note.
+- `field_presets.py`: deterministic placement engine that keeps stable English keys for reliable rule matching.
+- `field_renderer.py`: SVG renderer with localized zone legend labels.
+
+AI Provider Flow
+1. Onboard rule-based AI returns an immediate coaching note with no network or token.
+2. Ollama mode sends the coaching prompt to a local `/api/generate` endpoint.
+3. BYOK mode sends the prompt to the user's OpenAI-compatible `/chat/completions` endpoint with their runtime token.
+4. If a provider fails, the app falls back to onboard AI guidance so the user can continue.
+
+i18n/l10n Flow
+1. English is loaded by default.
+2. The user picks English, Hindi, or Telugu in the sidebar.
+3. UI labels and option display text come from `i18n.py`.
+4. Internal cricket values remain stable so changing language does not break placement lookup.

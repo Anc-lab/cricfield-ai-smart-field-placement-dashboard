@@ -1,6 +1,6 @@
 # field_renderer.py — SVG cricket ground renderer
 
-def render_field_svg(fielders, hand="Right-Handed"):
+def render_field_svg(fielders, hand="Right-Handed", catching_label="Catching", saving_label="Saving"):
     """
     Returns a full HTML string containing the SVG cricket field
     with all 9 fielder markers and tooltips.
@@ -25,7 +25,7 @@ def render_field_svg(fielders, hand="Right-Handed"):
         """
 
     # Batsman side indicator
-    bat_side = "← Batting" if hand == "Right-Handed" else "Batting →"
+    bat_side = "Batting left" if hand == "Right-Handed" else "Batting right"
 
     svg = f"""
     <!DOCTYPE html>
@@ -96,7 +96,7 @@ def render_field_svg(fielders, hand="Right-Handed"):
 
       <!-- Hand label -->
       <text x="250" y="468" text-anchor="middle" font-size="9"
-            fill="#a0c8a0" font-family="Arial">{bat_side} | 🟠 Catching  🔵 Saving</text>
+            fill="#a0c8a0" font-family="Arial">{bat_side} | Orange: {catching_label}  Blue: {saving_label}</text>
 
     </svg>
     </div>

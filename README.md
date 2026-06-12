@@ -1,31 +1,54 @@
-🏏 CricField AI — Smart Cricket Field Placement Dashboard
----
-One-Line Pitch
-> Select a batsman type and bowler style — get an AI-optimized 2D cricket field placement instantly.
----
-The Problem
-Cricket captains and coaches spend significant mental energy deciding field placements based on batsman weaknesses, bowler type, match situations, and pitch conditions. There's no visual, interactive tool that makes this decision fast, explainable, and data-informed.
----
-The Solution
-CricField AI is a web-based visual dashboard where:
-The user picks a batsman profile (handedness, position, known weaknesses)
-The user picks a bowler style (pace, spin, swing, angle)
-The app instantly renders an interactive 2D cricket field with 9 optimally placed fielders
-Each fielder placement comes with a reason tooltip (e.g., "Cover point: covers the drive gap for off-side heavy batsmen")
----
-Key Features
-🎯 Interactive 2D oval field with draggable fielder markers
-🧠 AI/rule-based field logic per batsman-bowler combination
-💬 Tooltip explanations for each fielder placement
-📋 Export field as image or share link
-🔁 Compare two field setups side by side
----
-Tech Stack
-Layer	Technology
-Frontend	React + Tailwind CSS
-Field Rendering	SVG / Canvas
-Logic Engine	Rule-based JSON map + optional Claude API
-State Management	React useState/useReducer
-Export	html2canvas
-Hosting	Vercel / GitHub Pages
----
+# CricField AI - Smart Cricket Field Placement Dashboard
+
+Select a batter profile and bowler style, then get an explainable AI-assisted cricket field placement instantly.
+
+## Features
+
+- Interactive 2D cricket field rendered with SVG
+- Rule-based AI placement engine for common batter/bowler matchups
+- Explanations for each fielder position
+- Multilingual UI with English as the default plus Hindi and Telugu
+- Local AI inference option through Ollama
+- BYOK support for OpenAI-compatible chat completion APIs
+- Built-in fallback coaching note so demos work without external services
+- User-centric market adoption panel highlighting accessibility, cost control, and coach/captain workflows
+
+## i18n and l10n
+
+The app separates user-facing text from cricket placement logic:
+
+- `i18n.py` stores translations for English, Hindi, and Telugu.
+- English is the default language.
+- Select boxes use localized labels while preserving stable internal values for the placement engine.
+- Preset names, fielder names, zone labels, and fielder explanations are localized for Hindi and Telugu users.
+- Localized UI and coaching notes make the dashboard easier for Indian coaches, captains, academies, and young players to adopt.
+
+## AI Options
+
+The sidebar includes three AI modes:
+
+- **Onboard rule-based AI**: no setup needed; uses the local placement rules and fallback coaching note.
+- **Local AI via Ollama**: calls `http://localhost:11434/api/generate` by default. Change the URL/model in the sidebar.
+- **BYOK OpenAI-compatible API**: enter your own API base URL, model, and token. The token is entered at runtime and is not stored in the repo.
+
+## Run Locally
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+For Ollama mode, start Ollama separately and make sure the selected model is available:
+
+```bash
+ollama pull llama3.1
+ollama serve
+```
+
+## Files
+
+- `app.py` - Streamlit UI, language switcher, AI provider controls
+- `i18n.py` - translation dictionaries and localized option labels
+- `ai_client.py` - Ollama, BYOK, and onboard AI helper functions
+- `field_presets.py` - placement presets and selection rules
+- `field_renderer.py` - SVG cricket field renderer
