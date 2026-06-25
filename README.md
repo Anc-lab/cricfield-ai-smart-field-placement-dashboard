@@ -45,6 +45,14 @@ ollama pull llama3.1
 ollama serve
 ```
 
+## Deploy
+
+This is a Streamlit app, so deploy it to Streamlit Community Cloud, Render, or another host that can run a long-lived web process.
+
+Do not deploy this app directly to Vercel as a Python serverless project. Vercel expects `app.py` to export a top-level WSGI/ASGI variable such as `app`, `application`, or `handler`, while Streamlit apps are launched with `streamlit run app.py`.
+
+See `DEPLOYMENT.md` for working deployment options.
+
 ## Development
 
 ```bash
