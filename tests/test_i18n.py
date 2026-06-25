@@ -34,4 +34,4 @@ def test_localized_reason_matches_zone_and_language():
 
 
 def test_supported_language_codes_are_available():
-    assert set(LANGUAGES) == {"en", "hi", "te"}
+    assert set(LANGUAGES) == {"en", "hi", "te", "bn", "ta"}

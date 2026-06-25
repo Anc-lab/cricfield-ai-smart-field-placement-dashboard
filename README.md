@@ -7,7 +7,7 @@ Select a batter profile and bowler style, then get an explainable AI-assisted cr
 - Interactive 2D cricket field rendered with SVG
 - Rule-based AI placement engine for common batter/bowler matchups
 - Explanations for each fielder position
-- Multilingual UI with English as the default plus Hindi and Telugu
+- Multilingual UI with English as the default plus Hindi, Telugu, Bengali, and Tamil
 - Local AI inference option through Ollama
 - BYOK support for OpenAI-compatible chat completion APIs
 - Built-in fallback coaching note so demos work without external services
@@ -17,10 +17,10 @@ Select a batter profile and bowler style, then get an explainable AI-assisted cr
 
 The app separates user-facing text from cricket placement logic:
 
-- `i18n.py` stores translations for English, Hindi, and Telugu.
+- `i18n.py` stores translations for English, Hindi, Telugu, Bengali, and Tamil.
 - English is the default language.
 - Select boxes use localized labels while preserving stable internal values for the placement engine.
-- Preset names, fielder names, zone labels, and fielder explanations are localized for Hindi and Telugu users.
+- Preset names, fielder names, zone labels, and fielder explanations are localized for Hindi, Telugu, Bengali, and Tamil users.
 - Localized UI and coaching notes make the dashboard easier for Indian coaches, captains, academies, and young players to adopt.
 
 ## AI Options

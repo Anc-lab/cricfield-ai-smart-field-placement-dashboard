@@ -18,21 +18,52 @@ st.set_page_config(page_title="CricField AI", page_icon="🏏", layout="wide")
 st.markdown(
     """
 <style>
-    body, .stApp { background-color: #0f1e0d; color: #f0f0f0; }
+    body, .stApp {
+        background:
+            radial-gradient(circle at top left, rgba(245,197,24,0.13), transparent 28rem),
+            linear-gradient(135deg, #08150e 0%, #11301f 48%, #0b1b16 100%);
+        color: #f5f7ef;
+    }
+    .block-container { padding-top: 1.4rem; max-width: 1260px; }
+    .hero {
+        border: 1px solid rgba(245,197,24,0.28);
+        background: rgba(10, 30, 20, 0.72);
+        border-radius: 8px;
+        padding: 18px 22px;
+        margin-bottom: 1rem;
+        box-shadow: 0 14px 38px rgba(0, 0, 0, 0.26);
+    }
     .main-title {
         font-size: 2.4rem; font-weight: 800; color: #f5c518;
-        text-align: center; margin-bottom: 0.2rem;
+        margin-bottom: 0.2rem;
     }
     .sub-title {
-        font-size: 1rem; color: #a0c8a0; text-align: center; margin-bottom: 1.5rem;
+        font-size: 1rem; color: #b9d9bf; margin-bottom: 0;
     }
-    .preset-box, .ai-box, .market-box {
-        background: #1a3a17; border: 1px solid #f5c518;
+    .control-panel, .preset-box, .ai-box, .market-box, .metric-card {
+        background: rgba(16, 47, 31, 0.92);
+        border: 1px solid rgba(245,197,24,0.26);
         border-radius: 8px; padding: 14px 20px; margin-top: 1rem;
+        box-shadow: 0 10px 26px rgba(0,0,0,0.18);
     }
-    .preset-box { text-align: center; }
+    .control-panel { margin-top: 0; padding: 16px 18px; }
+    .preset-box { text-align: left; }
     .preset-name { font-size: 1.3rem; font-weight: 700; color: #f5c518; }
     .preset-desc { font-size: 0.9rem; color: #c0e0c0; margin-top: 4px; }
+    .metric-grid {
+        display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px; margin-top: 1rem;
+    }
+    .metric-card { margin-top: 0; padding: 12px 14px; }
+    .metric-label {
+        color: #a8cbae; font-size: 0.74rem; text-transform: uppercase;
+        letter-spacing: 0.04em; font-weight: 700;
+    }
+    .metric-value { color: #ffffff; font-size: 1.35rem; font-weight: 800; }
+    .matchup-line {
+        color: #dcead8; font-size: 0.88rem; margin-top: 0.65rem;
+        border-top: 1px solid rgba(255,255,255,0.08); padding-top: 0.65rem;
+    }
     .fielder-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
     .fielder-table th {
         background: #1a3a17; color: #f5c518;
@@ -50,11 +81,22 @@ st.markdown(
         background: #1a7abf; color: white;
         border-radius: 4px; padding: 2px 7px; font-size: 0.75rem;
     }
-    .stSelectbox label, .stTextInput label { color: #a0c8a0 !important; font-weight: 600; }
-    div[data-testid="stSelectbox"] > div { background: #1a3a17 !important; color: #f0f0f0 !important; }
+    .stSelectbox label, .stTextInput label, .stRadio label { color: #bfe2c4 !important; font-weight: 650; }
+    div[data-testid="stSelectbox"] > div, div[data-baseweb="select"] > div, .stTextInput input {
+        background: #102f1f !important; color: #f0f0f0 !important;
+        border-color: rgba(245,197,24,0.25) !important;
+    }
+    .stButton button {
+        background: #f5c518; color: #0b1b16; border: 0;
+        font-weight: 800; border-radius: 6px; width: 100%;
+    }
     .section-header {
         color: #f5c518; font-weight: 700; font-size: 1rem;
-        border-bottom: 1px solid #2a4a27; padding-bottom: 4px; margin-bottom: 10px;
+        border-bottom: 1px solid rgba(245,197,24,0.22); padding-bottom: 4px; margin-bottom: 10px;
+    }
+    @media (max-width: 760px) {
+        .metric-grid { grid-template-columns: 1fr; }
+        .main-title { font-size: 1.8rem; }
     }
 </style>
 """,
@@ -103,12 +145,20 @@ with st.sidebar:
         api_key = st.text_input(t(lang, "api_key"), type="password")
 
 
-st.markdown(f'<div class="main-title">🏏 {t(lang, "app_title")}</div>', unsafe_allow_html=True)
-st.markdown(f'<div class="sub-title">{t(lang, "subtitle")}</div>', unsafe_allow_html=True)
+st.markdown(
+    f"""
+<div class="hero">
+    <div class="main-title">🏏 {t(lang, "app_title")}</div>
+    <div class="sub-title">{t(lang, "subtitle")}</div>
+</div>
+""",
+    unsafe_allow_html=True,
+)
 
 left_col, right_col = st.columns([1, 2], gap="large")
 
 with left_col:
+    st.markdown('<div class="control-panel">', unsafe_allow_html=True)
     st.markdown(f'<div class="section-header">{t(lang, "batsman_profile")}</div>', unsafe_allow_html=True)
 
     hand_options = ["Right-Handed", "Left-Handed"]
@@ -140,6 +190,7 @@ with left_col:
 
     bowler_type = translated_select("bowler_type", list(BOWLER_TYPES.keys()), lang)
     special = translated_select("special_delivery", list(BOWLER_SPECIALS.keys()), lang)
+    st.markdown("</div>", unsafe_allow_html=True)
 
 
 result = get_fielders(hand, weakness, bowler_type, special)
@@ -153,6 +204,8 @@ for fielder in fielders:
 
 display_preset_name = cricket_label(lang, result["preset_name"])
 display_preset_desc = preset_desc_label(lang, result["preset_desc"])
+catchers = sum(1 for fielder in fielders if fielder["zone"] == "Catching")
+savers = len(fielders) - catchers
 
 with right_col:
     st.markdown(f'<div class="section-header">{t(lang, "field_map")}</div>', unsafe_allow_html=True)
@@ -168,8 +221,24 @@ with right_col:
     st.markdown(
         f"""
     <div class="preset-box">
+        <div class="metric-label">{t(lang, "active_preset")}</div>
         <div class="preset-name">{display_preset_name}</div>
         <div class="preset-desc">{display_preset_desc}</div>
+        <div class="matchup-line"><b>{t(lang, "matchup")}:</b> {hand_labels[hand]} / {option_label(lang, weakness)} vs {option_label(lang, bowler_type)} - {option_label(lang, special)}</div>
+    </div>
+    <div class="metric-grid">
+        <div class="metric-card">
+            <div class="metric-label">{t(lang, "fielders_count")}</div>
+            <div class="metric-value">{len(fielders)}</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">{t(lang, "catchers_count")}</div>
+            <div class="metric-value">{catchers}</div>
+        </div>
+        <div class="metric-card">
+            <div class="metric-label">{t(lang, "savers_count")}</div>
+            <div class="metric-value">{savers}</div>
+        </div>
     </div>
     """,
         unsafe_allow_html=True,

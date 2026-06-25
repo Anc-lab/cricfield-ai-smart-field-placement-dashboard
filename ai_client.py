@@ -24,18 +24,30 @@ Include:
 
 
 def onboard_ai_note(lang, preset, weakness, bowler_type, special):
-    if lang == "hi":
-        return (
+    localized_notes = {
+        "hi": (
             f"{preset['preset_name']} इस matchup के लिए सही है क्योंकि यह {weakness} को target करता है "
             f"और {bowler_type} / {special} plan को support करता है. Captain को catching zone active रखना चाहिए, "
             "single रोकने के लिए inner ring tight रखनी चाहिए, और अगर batter release shot ढूंढे तो deep protection adjust करनी चाहिए."
-        )
-    if lang == "te":
-        return (
+        ),
+        "te": (
             f"{preset['preset_name']} ఈ matchup కి సరిపోతుంది, ఎందుకంటే ఇది {weakness} ను target చేస్తుంది "
             f"మరియు {bowler_type} / {special} plan కు support ఇస్తుంది. Captain catching zone ను active గా ఉంచాలి, "
             "singles తగ్గించేందుకు inner ring tight గా ఉంచాలి, batter release shot ప్రయత్నిస్తే deep protection adjust చేయాలి."
-        )
+        ),
+        "bn": (
+            f"{preset['preset_name']} এই matchup-এর জন্য ভালো, কারণ এটি {weakness} লক্ষ্য করে "
+            f"এবং {bowler_type} / {special} plan-কে support করে. Captain catching zone alert রাখবে, "
+            "easy singles আটকাতে inner ring tight রাখবে, আর batter release shot খুঁজলে deep protection adjust করবে."
+        ),
+        "ta": (
+            f"{preset['preset_name']} இந்த matchup-க்கு பொருந்துகிறது, ஏனெனில் இது {weakness}-ஐ target செய்கிறது "
+            f"மற்றும் {bowler_type} / {special} plan-ஐ support செய்கிறது. Captain catching zone-ஐ alert-ஆக வைத்திருக்க வேண்டும், "
+            "easy singles தடுக்க inner ring tight-ஆக இருக்க வேண்டும், batter release shot கண்டுபிடித்தால் deep protection adjust செய்ய வேண்டும்."
+        ),
+    }
+    if lang in localized_notes:
+        return localized_notes[lang]
     return (
         f"{preset['preset_name']} fits this matchup because it targets {weakness} while supporting the "
         f"{bowler_type} / {special} bowling plan. Keep the catching zone alert, protect easy singles with a tight ring, "
