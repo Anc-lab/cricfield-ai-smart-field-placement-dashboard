@@ -1,0 +1,8 @@
+title = "CricField AI gitleaks configuration"
+
+[allowlist]
+description = "Project-level false positive allowlist"
+paths = [
+  '''\.env\.example$''',
+  '''CHANGELOG\.md$''',
+]

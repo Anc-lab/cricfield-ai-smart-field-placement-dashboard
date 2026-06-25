@@ -1,0 +1,22 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--cov=. --cov-report=term-missing --cov-report=xml --cov-fail-under=75"
+
+[tool.coverage.run]
+branch = true
+source = ["."]
+omit = [
+  "app.py",
+  "tests/*",
+  ".venv/*",
+  "venv/*",
+]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+fail_under = 75
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv", "venv"]
+skips = ["B101"]

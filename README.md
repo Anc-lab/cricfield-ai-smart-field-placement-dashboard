@@ -45,6 +45,30 @@ ollama pull llama3.1
 ollama serve
 ```
 
+## Development
+
+```bash
+pip install -r requirements.txt -r requirements-dev.txt
+pre-commit install
+pytest
+```
+
+The test suite is configured in `pyproject.toml` with coverage reporting and a `75%` fail-under threshold.
+
+## Security and CI
+
+This repo includes:
+
+- Secret scanning with Gitleaks and TruffleHog
+- Dependency auditing with `pip-audit`
+- Static analysis with Bandit
+- GitLab CI in `.gitlab-ci.yml`
+- Pre-commit hooks in `.pre-commit-config.yaml`
+- Automated changelog configuration with `git-cliff` in `cliff.toml`
+- Docker build support with `Dockerfile` and `.dockerignore`
+
+See `SECURITY.md`, `CONTRIBUTING.md`, `USER_MANUAL.md`, `AGENTS.md`, and `SPEC_KIT.md` for operating guidance.
+
 ## Files
 
 - `app.py` - Streamlit UI, language switcher, AI provider controls
